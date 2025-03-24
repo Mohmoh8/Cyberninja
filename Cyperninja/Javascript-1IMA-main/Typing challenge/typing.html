@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Typing game</title>
+</head>
+<body>
+    <!--Overskrift-->
+    <header>
+        <h1>CYBERNINJA</h1>
+        <p>The keyboard master</p>
+    </header>
+    <main>
+        <!--Spill området-->
+        <section>
+            <h2>Klarer du å slå Cyberninja?</h2>
+            <article>
+                <p>Skriv sitatet så fort du kan og se om du er en ekte keyboard ninja</p>
+                <p id="sitat"></p>
+                <p id="status"></p>
+                <!--Hvor vi skriver inn teksten-->
+                <div>
+                    <input type="text" aria-label="current word" id="tekst" oninput="sjekkTekst()"/>
+                    <button type="button" id="start-knapp" onclick="startSpill()">START</button>
+                </div>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <p>Sist oppdatert 04.03.25</p>
+        <p>Credit til <a href="https://medium.com/geekculture/create-a-game-with-javascript-in-5-minutes-35f69c3b66e3">Anthony Mwaura</a></p>
+    </footer>
+
+    <script>
+        //Her lager vi spillet vårt
+
+        //Noen av start variablene våres
+        let ord = [];
+        let ordIndex = 0;
+        let startTime;
+        const sang = new Audio("Song/Happy.mp3");
+        //Her lager vi html elementene våres om til variabler slik at vi kan bruke de i javascripten
+        const sitatElement = document.getElementById("sitat");
+        const statusElement = document.getElementById("status");
+        const tekstElement = document.getElementById("tekst");
+
+        //Sitatene våres
+        const sitater = [
+                `What in The World Would I Do if this Wont Work! And where Would IT BE I wonder if i will EVER FIND IT ever again or maybe Soon?`,
+                `Who Made This And i dont Understand why would someone Would Ever DO This Again How And Why did that come from I Have NO Idea Where it Could Have Gone.  `,
+                `"Some How some Things are just broken and how would you even fix it"`,
+                `i dont want to do anyting anymore i feel like some things could be broken or where would you even go anymore and how would You Escape!`,
+                `Where would you need to Escape and how would you need to find the escaped exit?`,
+                `Now Where Would the Exit Be I Wonder Where Would It Have Been this may be bit hard to understand One Bitt On Which Way To Go? Left Or Maybe Right This May be to Hard to Understand Witch Way i do Wanna Go?`
+            ];
+        
+      //Funksjon for å starte spillet
+        function startSpill(){
+            //Her er koden for å velge et random sitat, samt deler opp dette sitatet til enkelte ord
+            sang.play()
+            const sitatIndex = Math.floor(Math.random() * sitater.length);
+            const sitat = sitater[sitatIndex];
+            ord = sitat.split(' ')
+            ordIndex = 0
+
+            //Her beveger vi oss gjennom ord variabelen for å kunne legge på en highlight på det valgte ordet
+            sitatElement.innerHTML = ord.map(word => `<span>${word}</span>`).join(' ');
+            sitatElement.children[0].classList.add('highlight')
+
+            statusElement.innerHTML = '';
+            tekstElement.value = '';
+            tekstElement.focus();
+            startTime = new Date().getTime();
+        }
+
+        //Start tekst sjekk
+        function sjekkTekst (){
+            //Spesifiserer hva det nåværende ordet vår skal være
+            const nåværendeOrd = ord[ordIndex];
+            const inputOrd = tekstElement.value.trim();
+
+            //Lager en betingelse for å si hva som skal skje hvis:
+            /*
+            1. Hvis inputord er riktig og er det siste ordet i sitatet
+            2. Hva som skal skje hvis input ordet våres matcher det nåværende ordet og input ordet våres har et mellomrom på slutten
+            3. Hvis nåværende ord begynner med input ordet
+            4. Hva som skjer hvis ingen av de tidligere betingelsene er riktig
+            */
+            if(inputOrd === nåværendeOrd && ordIndex === ord.length -1) {
+                const pågåendeTid = (new Date().getTime() - startTime) / 1000;
+                statusElement.innerHTML = `Gratulerer, du fullførte sitatet på ${pågåendeTid} sekunder!`;
+                tekstElement.value = '';
+            } else if (inputOrd === nåværendeOrd && tekstElement.value.endsWith(" ")) {
+                tekstElement.value = '';
+                ordIndex++
+                Array.from(sitatElement.children).forEach(el => el.classList.remove('highlight'));
+                if(sitatElement.children[ordIndex]) {
+                    sitatElement.children[ordIndex].classList.add('highlight');
+                }
+            } else if (nåværendeOrd.startsWith(inputOrd)) {
+                tekstElement.classList.remove('error');
+            } else {
+                tekstElement.classList.add('error')
+            }
+        }
+    </script>
+</body>
+</html>

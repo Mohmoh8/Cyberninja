@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Major+Mono+Display&family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap');
+
+body{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(img/Designer.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    font-family: "Bruno Ace", sans-serif;
+    color: white;
+}
+
+header{
+    width: 100%;
+    margin: 0;
+    padding-top: 5rem;
+    text-align: center;
+}
+
+h1{
+    text-shadow: 0 0 10px #9d00ff;
+    margin: 0;
+    padding: 0.2rem;
+    font-size: 4rem;
+}
+
+header p{
+    font-size: 2rem;
+    text-shadow: 0 0 10px #9d00ff;
+}
+
+main{
+    text-align: center;
+    height: 54vh;
+    width: 100%;
+    padding-top: 2rem;
+    text-shadow: 0 0 10px #9d00ff;
+}
+
+section{
+    margin: 0 auto;
+    padding: 4rem;
+}
+
+h2{
+    font-size: 1.5rem;
+}
+
+#status{
+    font-size: 1.2rem;
+    color: #1a1a2e;
+    text-shadow: 0 0 10px #9d00ff;
+}
+
+.highlight{
+    background-color: #ffdd00;
+}
+.error{
+    background-color: lightcoral;
+    border: red;
+}
+
+a{
+    color: #9d00ff;
+    text-decoration: none;
+}
+
+#tekst{
+    padding: 0.5rem;
+    width: 20%;
+    outline: none;
+}
+
+#tekst:focus{
+    border: solid 2px #00ff88;
+}
+
+#start-knapp{
+    background-color: transparent;
+    color: white;
+    border: solid 2px #00ff88;
+    padding: 0.5rem 1.5rem;
+}
+
+#start-knapp:hover{
+    box-shadow: 0 2px 4px 0 #00ff88, 0 2px 4px 0 #00ff88;
+}
+
+footer{
+    padding: 1.2rem;
+    text-align: center;
+    font-size: 0.7rem;
+}
